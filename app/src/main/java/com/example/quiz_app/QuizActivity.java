@@ -11,11 +11,10 @@ import java.util.List;
 public class QuizActivity extends AppCompatActivity {
 
     TextView questionTextView;
+    TextView questionNumberTextView; // New: For "Question n/m"
     RadioGroup optionsRadioGroup;
     Button submitButton, skipButton;
-
     ImageView questionImageView;
-
 
     List<Question> questions;
     int currentQuestionIndex = 0;
@@ -26,14 +25,16 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
-        questionImageView = findViewById(R.id.questionImageView);
 
-
+        // Bind views
         questionTextView = findViewById(R.id.questionTextView);
+        questionNumberTextView = findViewById(R.id.textView); // New: Question counter
         optionsRadioGroup = findViewById(R.id.optionsRadioGroup);
         submitButton = findViewById(R.id.submitButton);
         skipButton = findViewById(R.id.skipButton);
+        questionImageView = findViewById(R.id.questionImageView);
 
+        // Questions list
         questions = Arrays.asList(
                 new Question("What is the capital of France?",
                         Arrays.asList("Paris", "Rome", "Berlin", "Madrid"), 0, R.drawable.paris),
@@ -42,12 +43,15 @@ public class QuizActivity extends AppCompatActivity {
                         Arrays.asList("3", "4", "5", "6"), 1, R.drawable.math),
 
                 new Question("The largest planet?",
+                        Arrays.asList("Earth", "Mars", "Jupiter", "Venus"), 2, R.drawable.jupiter),
+
+                new Question("The largest planet?",
                         Arrays.asList("Earth", "Mars", "Jupiter", "Venus"), 2, R.drawable.jupiter)
         );
 
-
         showQuestion();
 
+        // Submit button logic
         submitButton.setOnClickListener(v -> {
             if (!answered) {
                 checkAnswer();
@@ -58,26 +62,31 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
-        skipButton.setOnClickListener(v -> {
-            nextQuestion();
-        });
+        // Skip button logic
+        skipButton.setOnClickListener(v -> nextQuestion());
     }
 
     private void showQuestion() {
         Question question = questions.get(currentQuestionIndex);
+
+        // New: Set question number (e.g., "Question 1/4")
+        questionNumberTextView.setText("Question " + (currentQuestionIndex + 1) + "/" + questions.size());
+
+        // Set question and image
         questionTextView.setText(question.getText());
         questionImageView.setImageResource(question.getImageResId());
 
+        // Set options
         for (int i = 0; i < optionsRadioGroup.getChildCount(); i++) {
             RadioButton radioButton = (RadioButton) optionsRadioGroup.getChildAt(i);
             radioButton.setText(question.getOptions().get(i));
         }
 
+        // Reset selection
         optionsRadioGroup.clearCheck();
         answered = false;
         submitButton.setText("Submit");
     }
-
 
     private void checkAnswer() {
         int selectedOptionId = optionsRadioGroup.getCheckedRadioButtonId();
@@ -85,8 +94,8 @@ public class QuizActivity extends AppCompatActivity {
             Toast.makeText(this, "Please select an option!", Toast.LENGTH_SHORT).show();
             return;
         }
-        int selectedIndex = optionsRadioGroup.indexOfChild(findViewById(selectedOptionId));
 
+        int selectedIndex = optionsRadioGroup.indexOfChild(findViewById(selectedOptionId));
         if (selectedIndex == questions.get(currentQuestionIndex).getCorrectAnswerIndex()) {
             score++;
             Toast.makeText(this, "Correct!", Toast.LENGTH_SHORT).show();
@@ -100,6 +109,7 @@ public class QuizActivity extends AppCompatActivity {
         if (currentQuestionIndex < questions.size()) {
             showQuestion();
         } else {
+            // End of quiz
             Intent intent = new Intent(QuizActivity.this, ScoreActivity.class);
             intent.putExtra("score", score);
             intent.putExtra("totalQuestions", questions.size());
@@ -107,5 +117,4 @@ public class QuizActivity extends AppCompatActivity {
             finish();
         }
     }
-
 }
