@@ -14,6 +14,9 @@ public class QuizActivity extends AppCompatActivity {
     RadioGroup optionsRadioGroup;
     Button submitButton, skipButton;
 
+    ImageView questionImageView;
+
+
     List<Question> questions;
     int currentQuestionIndex = 0;
     int score = 0;
@@ -23,6 +26,8 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+        questionImageView = findViewById(R.id.questionImageView);
+
 
         questionTextView = findViewById(R.id.questionTextView);
         optionsRadioGroup = findViewById(R.id.optionsRadioGroup);
@@ -30,10 +35,16 @@ public class QuizActivity extends AppCompatActivity {
         skipButton = findViewById(R.id.skipButton);
 
         questions = Arrays.asList(
-                new Question("What is the capital of France?", Arrays.asList("Paris", "Rome", "Berlin", "Madrid"), 0),
-                new Question("2 + 2 equals?", Arrays.asList("3", "4", "5", "6"), 1),
-                new Question("The largest planet?", Arrays.asList("Earth", "Mars", "Jupiter", "Venus"), 2)
+                new Question("What is the capital of France?",
+                        Arrays.asList("Paris", "Rome", "Berlin", "Madrid"), 0, R.drawable.paris),
+
+                new Question("2 + 2 equals?",
+                        Arrays.asList("3", "4", "5", "6"), 1, R.drawable.math),
+
+                new Question("The largest planet?",
+                        Arrays.asList("Earth", "Mars", "Jupiter", "Venus"), 2, R.drawable.jupiter)
         );
+
 
         showQuestion();
 
@@ -55,6 +66,7 @@ public class QuizActivity extends AppCompatActivity {
     private void showQuestion() {
         Question question = questions.get(currentQuestionIndex);
         questionTextView.setText(question.getText());
+        questionImageView.setImageResource(question.getImageResId());
 
         for (int i = 0; i < optionsRadioGroup.getChildCount(); i++) {
             RadioButton radioButton = (RadioButton) optionsRadioGroup.getChildAt(i);
@@ -65,6 +77,7 @@ public class QuizActivity extends AppCompatActivity {
         answered = false;
         submitButton.setText("Submit");
     }
+
 
     private void checkAnswer() {
         int selectedOptionId = optionsRadioGroup.getCheckedRadioButtonId();
