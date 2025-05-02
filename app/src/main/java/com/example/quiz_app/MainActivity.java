@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             String password = passwordEditText.getText().toString().trim();
 
             if (username.equals("admin") && password.equals("1234")) {
-                Intent intent = new Intent(MainActivity.this, QuizActivity.class);
+                Intent intent = new Intent(MainActivity.this, MenuActivity.class);
                 startActivity(intent);
                 finish();
             } else {

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
     android:background="@drawable/image_background"
+    android:gravity="center"
     android:padding="16dp">
 
-    <!-- Card-style container -->
+    <!-- Card-like container -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,53 +20,41 @@
         android:padding="24dp"
         android:clipToPadding="false">
 
-        <!-- Score Text -->
-        <TextView
-            android:id="@+id/scoreTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Your Score: 0 / 0"
-            android:textSize="24sp"
-            android:textColor="#212121"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="24dp" />
-
-        <!-- Progress Bar -->
-        <ProgressBar
-            android:id="@+id/circularProgressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="266dp"
-            android:layout_height="256dp"
-            android:background="@drawable/circular_shape"
-            android:max="100"
-            android:progress="0"
-            android:progressDrawable="@drawable/circular_progress_bar"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="24dp" />
-
-        <!-- Play Again Button -->
+        <!-- Geography Quiz Button -->
         <Button
-            android:id="@+id/playAgainButton"
+            android:id="@+id/geographyQuizButton"
             style="@style/Widget.MaterialComponents.Button"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:backgroundTint="#1976D2"
-            android:text="Play Again"
+            android:text="Geography Quiz"
             android:textColor="#FFFFFF"
             android:textAllCaps="false"
             android:elevation="2dp" />
 
-        <!-- Return to Menu Button -->
+        <!-- Top Scores Button -->
         <Button
-            android:id="@+id/returnToMenuButton"
+            android:id="@+id/topScoresButton"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="16dp"
-            android:text="Return to Menu"
+            android:text="Top Scores"
             android:textColor="#1976D2"
             android:textAllCaps="false"
-            android:outlineAmbientShadowColor="#1976D2"
+            app:strokeColor="#1976D2"
+            app:strokeWidth="1dp" />
+
+        <!-- Logout Button -->
+        <Button
+            android:id="@+id/logoutButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:text="Logout"
+            android:textColor="#1976D2"
+            android:textAllCaps="false"
             app:strokeColor="#1976D2"
             app:strokeWidth="1dp" />
     </LinearLayout>
