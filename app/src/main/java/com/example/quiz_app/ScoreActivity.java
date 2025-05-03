@@ -36,19 +36,25 @@ public class ScoreActivity extends AppCompatActivity {
         circularProgressBar.setProgress(progress);
         scoreTextView.setText("Your Score: " + score + " / " + totalQuestions);
 
+        // Save score to Firebase
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
-            DatabaseReference scoresRef = FirebaseDatabase.getInstance().getReference("scores");
             String userId = user.getUid();
+            String userName = user.getDisplayName();
+            if (userName == null || userName.isEmpty()) userName = "Anonymous";
 
-            // Save score under "scores/userId"
-            scoresRef.child(userId).setValue(score)
+            DatabaseReference scoresRef = FirebaseDatabase.getInstance().getReference("scores");
+
+            // Create UserScore object (assuming this constructor exists)
+            UserScore userScore = new UserScore(score, totalQuestions, System.currentTimeMillis(), userName);
+
+            // Save score under userId
+            scoresRef.child(userId).setValue(userScore)
                     .addOnSuccessListener(aVoid ->
                             Toast.makeText(ScoreActivity.this, "Score saved!", Toast.LENGTH_SHORT).show())
                     .addOnFailureListener(e ->
                             Toast.makeText(ScoreActivity.this, "Failed to save score", Toast.LENGTH_SHORT).show());
         }
-
 
         playAgainButton.setOnClickListener(v -> {
             startActivity(new Intent(this, QuizActivity.class));
