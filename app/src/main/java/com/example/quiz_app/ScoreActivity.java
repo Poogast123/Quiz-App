@@ -5,7 +5,14 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.DatabaseReference;
 
 public class ScoreActivity extends AppCompatActivity {
 
@@ -28,6 +35,20 @@ public class ScoreActivity extends AppCompatActivity {
         int progress = (int) ((float) score / totalQuestions * 100);
         circularProgressBar.setProgress(progress);
         scoreTextView.setText("Your Score: " + score + " / " + totalQuestions);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            DatabaseReference scoresRef = FirebaseDatabase.getInstance().getReference("scores");
+            String userId = user.getUid();
+
+            // Save score under "scores/userId"
+            scoresRef.child(userId).setValue(score)
+                    .addOnSuccessListener(aVoid ->
+                            Toast.makeText(ScoreActivity.this, "Score saved!", Toast.LENGTH_SHORT).show())
+                    .addOnFailureListener(e ->
+                            Toast.makeText(ScoreActivity.this, "Failed to save score", Toast.LENGTH_SHORT).show());
+        }
+
 
         playAgainButton.setOnClickListener(v -> {
             startActivity(new Intent(this, QuizActivity.class));
