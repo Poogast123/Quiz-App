@@ -36,18 +36,37 @@ public class QuizActivity extends AppCompatActivity {
 
         // Questions list
         questions = Arrays.asList(
-                new Question("What is the capital of France?",
-                        Arrays.asList("Paris", "Rome", "Berlin", "Madrid"), 0, R.drawable.paris),
+                new Question("Which country is shown in the image?",
+                        Arrays.asList("Italy", "Greece", "Albania", "Montenegro"), 2, R.drawable.albenia),
 
-                new Question("2 + 2 equals?",
-                        Arrays.asList("3", "4", "5", "6"), 1, R.drawable.math),
+                new Question("Which country is shown in the image?",
+                        Arrays.asList("Cyprus", "Turkey", "Syria", "Lebanon"), 0, R.drawable.cyprus),
 
-                new Question("The largest planet?",
-                        Arrays.asList("Earth", "Mars", "Jupiter", "Venus"), 2, R.drawable.jupiter),
+                new Question("Which country is shown in the image?",
+                        Arrays.asList("Ethiopia", "Italy", "Sudan", "Djibouti"), 1, R.drawable.italy),
 
-                new Question("The largest planet?",
-                        Arrays.asList("Earth", "Mars", "Jupiter", "Venus"), 2, R.drawable.jupiter)
+                new Question("Which country is shown in the image?",
+                        Arrays.asList("Sweden", "Finland", "Norway", "Russia"), 1, R.drawable.finland),
+
+                new Question("Which country is shown in the image?",
+                        Arrays.asList("Bangladesh", "Pakistan", "Nepal", "China"), 3, R.drawable.china),
+
+                new Question("Which country is shown in the image?",
+                        Arrays.asList("New Zealand", "Australia", "Fiji", "Indonesia"), 0, R.drawable.new_zealand),
+
+                new Question("Which country is shown in the image?",
+                        Arrays.asList("Benin", "Ghana", "Cameroon", "Senegal"), 3, R.drawable.senegal),
+
+                new Question("Which country is shown in the image?",
+                        Arrays.asList("Sweden", "Norway", "Finland", "Denmark"), 1, R.drawable.norway),
+
+                new Question("Which country is shown in the image?",
+                        Arrays.asList("Iraq", "Yemen", "Australia", "Iran"), 2, R.drawable.australia),
+
+                new Question("Which country is shown in the image?",
+                        Arrays.asList("Mexico", "Senegal", "Guinea-Bissau", "Sierra Leone"), 0, R.drawable.mozambique)
         );
+
 
         showQuestion();
 
